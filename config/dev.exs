@@ -17,7 +17,8 @@ config :ex_recipes, ExRecipesWeb.Endpoint,
       "watch",
       "--stdin",
       cd: Path.expand("../assets", __DIR__)
-    ]
+    ],
+    node: ["node_modules/.bin/bsb", "-make-world", "-w", cd: Path.expand("../assets", __DIR__)]
   ]
 
 # ## SSL Support
