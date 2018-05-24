@@ -1,6 +1,10 @@
 defmodule ExRecipesWeb.Resolvers.Recipes do
-  def list_recipes(_parent, args, _resolution) do
-    {:ok, ExRecipes.Recipes.list_recipes(args)}
+  def list_recipes(_parent, %{id: id}, _resolution) do
+    {:ok, ExRecipes.Recipes.get_recipe!(id)}
+  end
+
+  def list_recipes(_parent, _, _resolution) do
+    {:ok, ExRecipes.Recipes.list_recipes()}
   end
 
   def list_revisions(%ExRecipes.Recipes.Recipe{} = recipe, args, _resolution) do

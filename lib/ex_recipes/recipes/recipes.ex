@@ -18,6 +18,7 @@ defmodule ExRecipes.Recipes do
 
   """
   def list_recipes(%{id: id}), do: get_recipe!(id)
+
   def list_recipes, do: Repo.all(Recipe)
 
   @doc """
