@@ -21,15 +21,15 @@ let make = (_children) => {
     <GetRecipesQuery variables=recipesQuery##variables>
       ...(({result}) => {
         switch result {
-          /*| NoData => <div> (str("No Data")) </div>*/
           | Loading => <div> (str("Loading")) </div>
-          | Error(error) => <div> (str(error)) </div>
-          | Data(response) => <div>(str("check"))</div> 
-            /*<div className="card-deck">
+          | Error(error) => Js.log(error);
+                            <div> (str("Something Went Wrong")) </div>
+          | Data(response) => 
+            <div className="card-deck">
               <RecipeCard title="Homard" description="miam" />
               <RecipeCard title="Moru" description="mmm" />
               <RecipeCard title="Homard" description="miam" />
-            </div>*/
+            </div> 
           /*<div> (ReasonReact.string(response##pokemon##name)) </div>*/
         }
       })
