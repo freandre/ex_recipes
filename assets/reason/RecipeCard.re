@@ -4,7 +4,7 @@ let str = ReasonReact.string;
 
 let make = (~title, ~subtitle=?, ~description, _children) => {
     ...component,
-    render: self =>
+    render: (_self) =>
 
     <div className="card">
       <div className="card-body">
@@ -13,7 +13,7 @@ let make = (~title, ~subtitle=?, ~description, _children) => {
           | None => ReasonReact.null
           | Some(subtitle) => <h6 className="card-subtitle mb-2 text-muted"> (str(subtitle))</h6>
         })
-        <p className="card-text">(str(description))</p>        
+        <p className="card-text">(str(description))</p>
       </div>
     </div>,
   };

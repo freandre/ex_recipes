@@ -21,9 +21,9 @@ config :ex_recipes, ExRecipesWeb.Endpoint,
       "--host",
       "localhost",
       "--port",
-      "8080",
+      "8181",
       "--public",
-      "localhost:8080",
+      "localhost:8181",
       cd: Path.expand("../assets", __DIR__)
     ],
     node: ["node_modules/.bin/bsb", "-make-world", "-w", cd: Path.expand("../assets", __DIR__)]
