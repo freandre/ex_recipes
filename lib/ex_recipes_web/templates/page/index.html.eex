@@ -1,1 +1,7 @@
+      <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                  <h1 class="display-4">Forge my recipe !</h1>
+                  <p class="lead">The versioned recipe maker.</p>
+            </div>
+      </div>
       <div id="root"></div>
