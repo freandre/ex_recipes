@@ -12,15 +12,15 @@ module GetRecipes = [%graphql {|
       id
     }
   }
-|}]; 
+|}];
 
 module GetRecipesQuery = ReasonApollo.CreateQuery(GetRecipes);
 
 /* Prepare a recipe card */
 let gen_recipe = (recipe) => {  
   switch(recipe) {    
-    | Some(recipe) =>        
-          <RecipeCard title=recipe##title description=recipe##description />
+    | Some(recipe) =>
+          <RecipeCard id=recipe##id title=recipe##title description=recipe##description />
     | _ => ReasonReact.null
   }
 };

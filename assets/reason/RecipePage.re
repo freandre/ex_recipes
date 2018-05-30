@@ -5,7 +5,7 @@ let str = ReasonReact.string;
 
 /* GraphQL declaration */
 module GetRecipe = [%graphql {|  
-  query getRecipes($id: Int!) {
+  query getRecipe($id: Int!) {
     recipes(id: $id) {
       title
       description      
@@ -15,7 +15,7 @@ module GetRecipe = [%graphql {|
 
 module GetRecipeQuery = ReasonApollo.CreateQuery(GetRecipe);
 
-let make = (~id, _children) => {
+let make = (~id, ~revision=?, _children) => {
   ...component,
   render: (_self) => {
     let recipeQuery = GetRecipe.make(~id=id, ());

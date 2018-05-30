@@ -1,7 +1,8 @@
 /* Types declaration */
 type route =
   | Home
-  | Recipe(int);
+  | Recipe(int)
+  | VersionedRecipe(int, int);
 
 type state = {route};
 
@@ -17,7 +18,8 @@ let reducer = (action, _state) =>
 let mapUrlToRoute = (url: ReasonReact.Router.url) =>
     switch (url.path) {
         | [] => Home
-        | ["recipe", id] => Recipe(int_of_string(id))
+        | ["recipe", id, "revision", revision] => VersionedRecipe(int_of_string(id), int_of_string(revision))
+        | ["recipe", id] => Recipe(int_of_string(id))                
         | _ => Home
     };
 
@@ -53,8 +55,9 @@ let make = _children => {
                         </div>
 
                         (switch (self.state.route) {
-                            | Home => <RecipesPage />
-                            | Recipe(id) => <RecipesPage />
+                            | Home => <RecipesPage />                            
+                            | Recipe(id) => <RecipePage id />
+                            | VersionedRecipe(id, revision) => <RecipePage id revision />
                         })
 
                     </div>
