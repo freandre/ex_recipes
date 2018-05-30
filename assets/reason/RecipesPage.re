@@ -46,7 +46,7 @@ let make = (_children) => {
           | Loading => <div>(str("Loading"))</div>
           | Error(error) => Js.log(error);
                             <div>(str("Something Went Wrong"))</div>
-          | Data(response) => <div className="card-deck">(gen_recipes(response))</div>               
+          | Data(response) => <div className="card-columns">(gen_recipes(response))</div>               
         }
       })
     </GetRecipesQuery>

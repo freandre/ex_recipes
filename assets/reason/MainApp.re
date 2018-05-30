@@ -43,7 +43,7 @@ let make = _children => {
     ],
     render: self =>
         <ReasonApollo.Provider client=GraphQLClient.instance>        
-            <div className="container">                            
+            <div className="container-fluid">                            
                 <div className="row">
                     <div className="col" />
                     <div className="col-8"> 

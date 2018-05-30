@@ -26,7 +26,11 @@ let make = (~id, ~revision=?, _children) => {
           | Loading => <div>(str("Loading"))</div>
           | Error(error) => Js.log(error);
                             <div>(str("Something Went Wrong"))</div>
-          | Data(response) => <div>(str("Something"))</div>               
+          | Data(response) => 
+              <div>
+            /*    <RecipeTitle response##title />
+                <RecipeDescription response##description />*/
+              </div>               
         }
       })
     </GetRecipeQuery>
