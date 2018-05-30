@@ -5,12 +5,12 @@ let str = ReasonReact.string;
 
 /* GraphQL declaration */
 module GetRecipes = [%graphql {|
-  {
+  query getRecipes {
     recipes {
       title
       description
       id
-    } 
+    }
   }
 |}]; 
 
