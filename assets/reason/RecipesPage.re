@@ -1,18 +1,22 @@
 let component = ReasonReact.statelessComponent("RecipesPage");
 
+/* Shortcut declaration */
 let str = ReasonReact.string;
 
+/* GraphQL declaration */
 module GetRecipes = [%graphql {|
   {
     recipes {
       title
       description
+      id
     } 
   }
 |}]; 
 
 module GetRecipesQuery = ReasonApollo.CreateQuery(GetRecipes);
 
+/* Prepare a recipe card */
 let gen_recipe = (recipe) => {  
   switch(recipe) {    
     | Some(recipe) =>        
@@ -21,6 +25,7 @@ let gen_recipe = (recipe) => {
   }
 };
 
+/* Prepare a recipe card list */
 let gen_recipes = (response) => {  
   switch(response##recipes) {    
     | Some(recipes) =>

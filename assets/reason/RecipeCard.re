@@ -2,6 +2,7 @@ let component = ReasonReact.statelessComponent("RecipeCard");
 
 let str = ReasonReact.string;
 
+/* Prepare a subtitle if available */
 let gen_subtitle = (subtitle) => {
   switch(subtitle) {    
     | Some(subtitle) => <h6 className="card-subtitle mb-2 text-muted">(str(subtitle))</h6>
