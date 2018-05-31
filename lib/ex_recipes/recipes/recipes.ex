@@ -138,11 +138,13 @@ defmodule ExRecipes.Recipes do
 
   """
   def get_revisions_for_recipe(%Recipe{} = recipe, %{revision: revision}) do
-    Repo.all(from(r in Revision, where: r.recipe_id == ^recipe.id and r.revision == ^revision))
+    Repo.one!(from(r in Revision, where: r.recipe_id == ^recipe.id and r.revision == ^revision))
   end
 
   def get_revisions_for_recipe(%Recipe{} = recipe, _args) do
-    Repo.all(from(r in Revision, where: r.recipe_id == ^recipe.id, order_by: [asc: r.revision]))
+    Repo.one!(
+      from(r in Revision, where: r.recipe_id == ^recipe.id and r.revision == max(r.revision))
+    )
   end
 
   @doc """
@@ -150,7 +152,7 @@ defmodule ExRecipes.Recipes do
 
   """
   def count_revisions_for_recipe(%Recipe{} = recipe) do
-    Repo.one(from(r in Revision, where: r.recipe_id == ^recipe.id, select: count("*")))
+    Repo.one!(from(r in Revision, where: r.recipe_id == ^recipe.id, select: count("*")))
   end
 
   @doc """

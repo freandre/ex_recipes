@@ -1,9 +1,9 @@
-defmodule ExRecipesWeb.Schema.RecipeSumUp do
+defmodule ExRecipesWeb.Schema.RecipeSummary do
   use Absinthe.Schema.Notation
 
   alias ExRecipesWeb.Resolvers
 
-  object :recipe_sumup do
+  object :recipe_summary do
     field(:id, :id)
     field(:title, :string)
     field(:description, :string)

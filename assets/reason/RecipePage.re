@@ -4,7 +4,6 @@ let component = ReasonReact.statelessComponent("RecipePage");
 let str = ReasonReact.string;
 
 /* GraphQL declaration */
-
 module GetVersionedRecipe = [%graphql {|  
   query getVersionedRecipe($id: Int!, $revision: Int!) {
     recipe(id: $id) {
