@@ -4,35 +4,61 @@ let component = ReasonReact.statelessComponent("RecipePage");
 let str = ReasonReact.string;
 
 /* GraphQL declaration */
-module GetRecipe = [%graphql {|  
-  query getRecipe($id: Int!) {
-    recipes(id: $id) {
+
+module GetVersionedRecipe = [%graphql {|  
+  query getVersionedRecipe($id: Int!, $revision: Int!) {
+    recipe(id: $id) {
       title
-      description      
-    }
+      description
+      revisions(revision: $revision) {
+        revision
+        ingredients {
+          ingredient
+        }
+        steps{
+          description
+        }
+      }
+    } 
   }   
 |}]; 
 
-module GetRecipeQuery = ReasonApollo.CreateQuery(GetRecipe);
+module GetVersionedRecipeQuery = ReasonApollo.CreateQuery(GetVersionedRecipe);
 
 let make = (~id, ~revision=?, _children) => {
   ...component,
   render: (_self) => {
-    let recipeQuery = GetRecipe.make(~id=id, ());
+    
+    let (recipeQuery, queryElement) = switch revision {
+        | Some(revision) => (GetVersionedRecipe.make(~id=id, ~revision=revision, ()), GetVersionedRecipeQuery);
+        | _ => (GetRecipe.make(~id=id, ()), GetRecipeQuery);
+        };    
 
-    <GetRecipeQuery variables=recipeQuery##variables>
+    <queryElement variables=recipeQuery##variables>
       ...(({result}) => {
         switch result {
           | Loading => <div>(str("Loading"))</div>
           | Error(error) => Js.log(error);
                             <div>(str("Something Went Wrong"))</div>
           | Data(response) => 
-              <div>
-            /*    <RecipeTitle response##title />
-                <RecipeDescription response##description />*/
-              </div>               
+              let recipe = response##recipe;
+
+              switch recipe {
+                | Some(recipe) =>
+                  let title = recipe##title;
+                  let description = recipe##description;
+                  
+                  <div className="container-fluid">
+                    <div className="row">
+                      <RecipeTitle title />
+                      <RecipeDescription description />
+                    </div>
+                    <VersionedElements />                    
+                  </div>
+                | _ => ReasonReact.null
+              }
         }
       })
-    </GetRecipeQuery>
+    </queryElement>
   }
 };

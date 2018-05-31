@@ -22,7 +22,7 @@ let make = (~id, ~title, ~subtitle=?, ~description, _children) => {
     render: (_self) => 
       switch(id, title, description) {
       | (Some(id), Some(title), Some(description)) => 
-        <div className="card" onClick=(handleClick("recipe/" ++ id))>
+        <div className="card shadow-sm rounded" onClick=(handleClick("recipe/" ++ id))>
           <div className="card-body">
             <h5 className="card-title">(str(title))</h5>
             (gen_subtitle(subtitle))

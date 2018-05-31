@@ -145,17 +145,13 @@
           "fields": [
             {
               "type": {
-                "ofType": {
-                  "ofType": null,
-                  "name": "Recipe",
-                  "kind": "OBJECT"
-                },
-                "name": null,
-                "kind": "LIST"
+                "ofType": null,
+                "name": "Recipe",
+                "kind": "OBJECT"
               },
-              "name": "recipes",
+              "name": "recipe",
               "isDeprecated": false,
-              "description": "Get recipes",
+              "description": "Get recipe",
               "deprecationReason": null,
               "args": [
                 {
@@ -169,6 +165,22 @@
                   "defaultValue": null
                 }
               ]
+            },
+            {
+              "type": {
+                "ofType": {
+                  "ofType": null,
+                  "name": "Recipe",
+                  "kind": "OBJECT"
+                },
+                "name": null,
+                "kind": "LIST"
+              },
+              "name": "recipes",
+              "isDeprecated": false,
+              "description": "Get recipes",
+              "deprecationReason": null,
+              "args": []
             }
           ],
           "enumValues": null,

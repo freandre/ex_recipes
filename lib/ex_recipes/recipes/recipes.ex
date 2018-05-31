@@ -134,7 +134,7 @@ defmodule ExRecipes.Recipes do
   def get_revision!(id), do: Repo.get!(Revision, id)
 
   @doc """
-  Gets a mist of revisions associated to a recipe id.
+  Gets a list of revisions associated to a recipe id.
 
   """
   def get_revisions_for_recipe(%Recipe{} = recipe, %{revision: revision}) do
@@ -143,6 +143,14 @@ defmodule ExRecipes.Recipes do
 
   def get_revisions_for_recipe(%Recipe{} = recipe, _args) do
     Repo.all(from(r in Revision, where: r.recipe_id == ^recipe.id, order_by: [asc: r.revision]))
+  end
+
+  @doc """
+  Count number of revisions associated to a recipe id.
+
+  """
+  def count_revisions_for_recipe(%Recipe{} = recipe) do
+    Repo.one(from(r in Revision, where: r.recipe_id == ^recipe.id, select: count("*")))
   end
 
   @doc """

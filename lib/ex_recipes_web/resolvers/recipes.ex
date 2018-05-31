@@ -11,6 +11,10 @@ defmodule ExRecipesWeb.Resolvers.Recipes do
     {:ok, ExRecipes.Recipes.get_revisions_for_recipe(recipe, args)}
   end
 
+  def count_revisions(%ExRecipes.Recipes.Recipe{} = recipe, _args, _resolution) do
+    {:ok, ExRecipes.Recipes.count_revisions_for_recipe(recipe)}
+  end
+
   def list_comments(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
     {:ok, ExRecipes.Recipes.get_comments_for_revision(revision)}
   end
