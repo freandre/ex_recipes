@@ -19,6 +19,7 @@ defmodule ExRecipesWeb.Schema do
     field :recipe, :recipe do
       arg(:id, non_null(:id))
       arg(:revision, :integer)
+      middleware(ExRecipesWeb.Middleware.Recipe)
       resolve(&Resolvers.Recipes.get_recipe/3)
     end
   end

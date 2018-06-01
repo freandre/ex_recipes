@@ -11,15 +11,21 @@ defmodule ExRecipesWeb.Resolvers.Recipes do
     {:ok, ExRecipes.Recipes.get_recipe!(id)}
   end
 
-  def list_comments(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_comments_for_revision(revision)}
+  def list_comments(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_comments_for_recipe(args)}
   end
 
-  def list_ingredients(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_ingredients_for_revision(revision)}
+  def list_ingredients(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_ingredients_for_recipe(args)}
   end
 
-  def list_steps(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_steps_for_revision(revision)}
+  def list_steps(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_steps_for_recipe(args)}
   end
 end

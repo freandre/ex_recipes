@@ -252,13 +252,17 @@ defmodule ExRecipes.Recipes do
   def get_comment!(id), do: Repo.get!(Comment, id)
 
   @doc """
-  Gets a mist of revisions associated to a recipe id.
+  Gets a list of comments associated to a recipe id and possibly a revision.
 
   """
-  def get_comments_for_revision(%Revision{} = revision) do
-    Repo.all(
-      from(c in Comment, where: c.revision_id == ^revision.id, order_by: [asc: c.posted_at])
+  def get_comments_for_recipe(%{id: _} = args) do
+    from(
+      c in Comment,
+      join: rid in subquery(get_revision_subquery(args)),
+      where: c.revision_id == rid.revision_id,
+      order_by: [desc: c.posted_at]
     )
+    |> Repo.all()
   end
 
   @doc """
@@ -359,18 +363,18 @@ defmodule ExRecipes.Recipes do
   def get_step!(id), do: Repo.get!(Step, id)
 
   @doc """
-  Gets a mist of revisions associated to a recipe id.
+  Gets a list of steps associated to a recipe id and possibly a revision.
 
   """
-  def get_steps_for_revision(%Revision{} = revision) do
-    Repo.all(
-      from(
-        s in Step,
-        join: sl in StepList,
-        where: sl.revision_id == ^revision.id and s.id == sl.step_id,
-        order_by: [asc: sl.id]
-      )
+  def get_steps_for_recipe(%{id: _} = args) do
+    from(
+      s in Step,
+      join: sl in StepList,
+      join: rid in subquery(get_revision_subquery(args)),
+      where: sl.revision_id == rid.revision_id and s.id == sl.step_id,
+      order_by: [asc: sl.id]
     )
+    |> Repo.all()
   end
 
   @doc """
@@ -565,18 +569,18 @@ defmodule ExRecipes.Recipes do
   def get_ingredient!(id), do: Repo.get!(Ingredient, id)
 
   @doc """
-  Gets a mist of revisions associated to a recipe id.
+  Gets a list of ingredients associated to a recipe id and possibly a revision.
 
   """
-  def get_ingredients_for_revision(%Revision{} = revision) do
-    Repo.all(
-      from(
-        i in Ingredient,
-        join: il in IngredientList,
-        where: il.revision_id == ^revision.id and i.id == il.ingredient_id,
-        order_by: [asc: il.id]
-      )
+  def get_ingredients_for_recipe(%{id: _} = args) do
+    from(
+      i in Ingredient,
+      join: il in IngredientList,
+      join: rid in subquery(get_revision_subquery(args)),
+      where: il.revision_id == rid.revision_id and i.id == il.ingredient_id,
+      order_by: [asc: il.id]
     )
+    |> Repo.all()
   end
 
   @doc """
@@ -736,5 +740,25 @@ defmodule ExRecipes.Recipes do
   """
   def change_ingredient_list(%IngredientList{} = ingredient_list) do
     IngredientList.changeset(ingredient_list, %{})
+  end
+
+  #############################################################################
+
+  defp get_revision_subquery(%{id: id} = args) do
+    case args do
+      %{revision: revision} ->
+        from(
+          r in Revision,
+          where: r.recipe_id == ^id and r.revision == ^revision,
+          select: %{revision_id: r.id}
+        )
+
+      _ ->
+        from(
+          r in Revision,
+          where: r.recipe_id == ^id,
+          select: %{revision_id: max(r.id)}
+        )
+    end
   end
 end
