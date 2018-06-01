@@ -265,6 +265,18 @@
             },
             {
               "type": {
+                "ofType": null,
+                "name": "Int",
+                "kind": "SCALAR"
+              },
+              "name": "revisions",
+              "isDeprecated": false,
+              "description": null,
+              "deprecationReason": null,
+              "args": []
+            },
+            {
+              "type": {
                 "ofType": {
                   "ofType": null,
                   "name": "Step",

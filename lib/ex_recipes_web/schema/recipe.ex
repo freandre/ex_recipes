@@ -9,6 +9,10 @@ defmodule ExRecipesWeb.Schema.Recipe do
     field(:description, :string)
     field(:picture, :string)
 
+    field(:revisions, :integer) do
+      resolve(&Resolvers.Recipes.count_revisions/3)
+    end
+
     field(:ingredients, list_of(:ingredient)) do
       resolve(&Resolvers.Recipes.list_ingredients/3)
     end

@@ -56,8 +56,8 @@ let make = _children => {
 
                         (switch (self.state.route) {
                             | Home => <RecipesPage />                            
-                            | Recipe(id) => <RecipePage id />
-                            | VersionedRecipe(id, revision) => <RecipePage id revision />
+                            | Recipe(id) => <Recipe id />
+                            | VersionedRecipe(id, revision) => <VersionedRecipe id revision />
                         })
 
                     </div>
