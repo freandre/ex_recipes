@@ -3,7 +3,7 @@ let component = ReasonReact.statelessComponent("Comments");
 /* Shortcut declaration */
 let str = ReasonReact.string;
 
-/* Prepare a comment item */
+/* Prepare a text item */
 let gen_text = (text) => {
     switch(text) {
         | Some(text) => <p className="card-text">(str(text))</p>
@@ -11,9 +11,14 @@ let gen_text = (text) => {
     }
 }
 
-/* Prepare a comment item */
+/* Prepare a date item */
 let gen_date = (date) => {
-    switch(date) {
+    let datestr = switch(date) {
+        | Some(date) => Js.Json.decodeString(date);
+        | _ => None 
+    }; 
+    
+    switch(datestr) {
         | Some(date) => <p className="card-text text-right text-muted">(str(date))</p>
         | _ => ReasonReact.null    
     }

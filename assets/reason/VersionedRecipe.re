@@ -43,9 +43,11 @@ let make = (~id, ~revision, _children) => {
                   | Some(recipe) =>
                     let title = recipe##title;
                     let description = recipe##description;
+                    let ingredients = recipe##ingredients;
+                    let steps = recipe##steps;
                     let comments = recipe##comments;
                     
-                    <RecipePage title description comments />                    
+                    <RecipePage title description ingredients steps comments />                    
                   | _ => ReasonReact.null
                 }
           }
