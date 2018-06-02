@@ -13,18 +13,19 @@ defmodule ExRecipesWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/", ExRecipesWeb do
-    # Use the default browser stack
-    pipe_through(:browser)
-
-    get("/", PageController, :index)
-  end
-
   scope "/api" do
     pipe_through(:api)
 
     forward("/graphiql", Absinthe.Plug.GraphiQL, schema: ExRecipesWeb.Schema)
 
     forward("/", Absinthe.Plug, schema: ExRecipesWeb.Schema)
+  end
+
+  scope "/", ExRecipesWeb do
+    # Use the default browser stack
+    pipe_through(:browser)
+
+    get("/", PageController, :index)
+    get("/recipe*anything", PageController, :index)
   end
 end
