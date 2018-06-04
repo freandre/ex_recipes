@@ -45,9 +45,9 @@ let make = _children => {
         <ReasonApollo.Provider client=GraphQLClient.instance>        
             <div className="container-fluid">
                 <div className="row">
-                    <div className="col" />
+                    <div className="col-2" />
                     <div className="col-8"> 
-                        <div className="jumbotron jumbotron-fluid shadow-sm">
+                        <div className="jumbotron jumbotron-fluid shadow-sm mb-5">
                             <div className="container">            
                                 <h1 className="display-4">(str("Forge my recipe !"))</h1>
                                 <p className="lead">(str("The versioned recipe maker."))</p>
@@ -61,7 +61,7 @@ let make = _children => {
                         })
 
                     </div>
-                    <div className="col" />
+                    <div className="col-2" />
                 </div>
             </div>        
         </ReasonApollo.Provider>, 

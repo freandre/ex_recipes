@@ -10,14 +10,14 @@ let make = (~title, ~description, ~ingredients, ~steps, ~comments, _children) =>
         <div className="row">
           <RecipeTitle title />
         </div>
-        <div className="row">
+        <div className="row mb-5">
           <RecipeDescription description />
         </div>
-        <div className="row">
-          <div className="col">
+        <div className="row mb-5">
+          <div className="col-4">
             <Ingredients ingredients />
           </div>
-          <div className="col-4">
+          <div className="col-8">
             <Steps steps />
           </div>
         </div>
