@@ -7,13 +7,13 @@
     "deploy": "MIX_ENV=prod webpack -p"
   },
   "dependencies": {
-    "apollo-cache-inmemory": "^1.2.1",
-    "apollo-client": "^2.3.1",
+    "apollo-cache-inmemory": "^1.2.2",
+    "apollo-client": "^2.3.2",
     "apollo-link": "^1.2.2",
     "apollo-link-context": "^1.0.8",
     "apollo-link-error": "^1.0.9",
     "apollo-link-http": "^1.5.4",
-    "autoprefixer": "^8.5.0",
+    "autoprefixer": "^8.5.2",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -28,12 +28,12 @@
     "reason-apollo": "^0.9.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
-    "webpack": "^4.8.3",
+    "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4"
   },
   "devDependencies": {
-    "bs-platform": "^3.1.4",
-    "reason-react": "^0.4.1"
+    "bs-platform": "^3.1.5",
+    "reason-react": "^0.4.2"
   }
 }

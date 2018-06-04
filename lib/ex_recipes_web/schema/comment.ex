@@ -4,7 +4,6 @@ defmodule ExRecipesWeb.Schema.Comment do
   object :comment do
     field(:id, :id)
     field(:comment, :string)
-    field(:revision, :revision)
     field(:posted_at, :naive_datetime)
   end
 end

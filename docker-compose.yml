@@ -1,6 +1,13 @@
 version: "3"
 
 services:
+    nginx:
+        image: nginx
+        ports: 
+            - 8282:80
+        volumes:
+            - ./images:/usr/share/nginx/html
+
     postgres:
         image: postgres:9
         ports:

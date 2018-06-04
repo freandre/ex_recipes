@@ -5,22 +5,22 @@ let str = ReasonReact.string;
 
 /* GraphQL declaration */
 module GetRecipes = [%graphql {|
-  {
+  query getRecipes {
     recipes {
       title
       description
       id
-    } 
+    }
   }
-|}]; 
+|}];
 
 module GetRecipesQuery = ReasonApollo.CreateQuery(GetRecipes);
 
 /* Prepare a recipe card */
 let gen_recipe = (recipe) => {  
   switch(recipe) {    
-    | Some(recipe) =>        
-          <RecipeCard title=recipe##title description=recipe##description />
+    | Some(recipe) =>
+          <RecipeCard id=recipe##id title=recipe##title description=recipe##description />
     | _ => ReasonReact.null
   }
 };
@@ -46,7 +46,7 @@ let make = (_children) => {
           | Loading => <div>(str("Loading"))</div>
           | Error(error) => Js.log(error);
                             <div>(str("Something Went Wrong"))</div>
-          | Data(response) => <div className="card-deck">(gen_recipes(response))</div>               
+          | Data(response) => <div className="card-columns">(gen_recipes(response))</div>               
         }
       })
     </GetRecipesQuery>

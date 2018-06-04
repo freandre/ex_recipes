@@ -43,6 +43,7 @@ defmodule ExRecipes.Mixfile do
       {:cowboy, "~> 1.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
+      {:dataloader, "~> 1.0.0"},
       {:faker, "~> 0.10"}
     ]
   end
