@@ -5,7 +5,7 @@ defmodule ExRecipesWeb.LayoutView do
     if Mix.env() == :prod do
       ~s(<script src="/js/app.js"></script>)
     else
-      ~s(<script src="http://localhost:8181/js/app.js"></script>)
+      ~s(<script src="http://localhost:4000/js/app.js"></script>)
     end
   end
 

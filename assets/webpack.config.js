@@ -30,13 +30,7 @@ module.exports = (env) => {
         output: {
             path: path.resolve(__dirname, "../priv/static"),
             filename: 'js/[name].js',
-            publicPath: 'http://localhost:8181/'
-        },
-
-        devServer: {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-            }
+            publicPath: 'http://localhost:4000/'
         },
 
         module: {
