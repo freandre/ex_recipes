@@ -2,6 +2,13 @@ let component = ReasonReact.statelessComponent("RecipeCard");
 
 let str = ReasonReact.string;
 
+/* Click handler */
+let handleClick = (href, event) =>
+  if (! ReactEventRe.Mouse.defaultPrevented(event)) {
+    ReactEventRe.Mouse.preventDefault(event);
+    ReasonReact.Router.push(href);
+  };
+
 /* Prepare a subtitle if available */
 let gen_subtitle = (subtitle) => {
   switch(subtitle) {    
@@ -10,12 +17,12 @@ let gen_subtitle = (subtitle) => {
   }
 };
 
-let make = (~title, ~subtitle=?, ~description, _children) => {
+let make = (~id, ~title, ~subtitle=?, ~description, _children) => {
     ...component,
     render: (_self) => 
-      switch(title, description) {
-      | (Some(title), Some(description)) => 
-        <div className="card">
+      switch(id, title, description) {
+      | (Some(id), Some(title), Some(description)) => 
+        <div className="card shadow-sm rounded" onClick=(handleClick("recipe/" ++ id))>
           <div className="card-body">
             <h5 className="card-title">(str(title))</h5>
             (gen_subtitle(subtitle))

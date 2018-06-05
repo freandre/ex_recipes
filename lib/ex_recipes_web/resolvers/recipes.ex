@@ -1,25 +1,31 @@
 defmodule ExRecipesWeb.Resolvers.Recipes do
-  def list_recipes(_parent, %{id: id}, _resolution) do
-    {:ok, ExRecipes.Recipes.get_recipe!(id)}
-  end
-
-  def list_recipes(_parent, _, _resolution) do
+  def list_recipes(_parent, _args, _resolution) do
     {:ok, ExRecipes.Recipes.list_recipes()}
   end
 
-  def list_revisions(%ExRecipes.Recipes.Recipe{} = recipe, args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_revisions_for_recipe(recipe, args)}
+  def count_revisions(%ExRecipes.Recipes.Recipe{} = recipe, _args, _resolution) do
+    {:ok, ExRecipes.Recipes.count_revisions_for_recipe(recipe)}
   end
 
-  def list_comments(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_comments_for_revision(revision)}
+  def get_recipe(_parent, %{id: id}, _resolution) do
+    {:ok, ExRecipes.Recipes.get_recipe!(id)}
   end
 
-  def list_ingredients(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_ingredients_for_revision(revision)}
+  def list_comments(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_comments_for_recipe(args)}
   end
 
-  def list_steps(%ExRecipes.Recipes.Revision{} = revision, _args, _resolution) do
-    {:ok, ExRecipes.Recipes.get_steps_for_revision(revision)}
+  def list_ingredients(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_ingredients_for_recipe(args)}
+  end
+
+  def list_steps(_parent, _args, resolution) do
+    args = resolution.context[:top_args]
+
+    {:ok, ExRecipes.Recipes.get_steps_for_recipe(args)}
   end
 end
