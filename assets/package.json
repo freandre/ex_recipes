@@ -3,8 +3,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run watch",
-    "watch": "MIX_ENV=dev webpack-dev-server --inline --hot --stdin --colors --public localhost:8181",
-    "deploy": "MIX_ENV=prod webpack -p"
+    "deploy": "webpack --mode production",
+    "watch": "webpack --mode development --watch"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.2.2",
@@ -13,7 +13,7 @@
     "apollo-link-context": "^1.0.8",
     "apollo-link-error": "^1.0.9",
     "apollo-link-http": "^1.5.4",
-    "autoprefixer": "^8.5.2",
+    "autoprefixer": "^8.6.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -26,11 +26,10 @@
     "postcss-loader": "^2.1.5",
     "react-apollo": "^2.1.4",
     "reason-apollo": "^0.9.1",
-    "sass-loader": "^7.0.1",
+    "sass-loader": "^7.0.2",
     "style-loader": "^0.21.0",
     "webpack": "^4.10.2",
-    "webpack-cli": "^2.1.4",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-cli": "^3.0.2"
   },
   "devDependencies": {
     "bs-platform": "^3.1.5",
