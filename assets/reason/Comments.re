@@ -25,10 +25,11 @@ let gen_date = (date) => {
 }
 
 /* Prepare a comment item */
-let gen_comment = (comment) => {
+let gen_comment = (comment, lastId) => {    
     switch(comment) {    
         | Some(comment) =>
-            <div className="card shadow-sm rounded">                
+            lastId := lastId^ + 1;
+            <div className="card shadow-sm rounded" key=(string_of_int(lastId^))>                
                 <div className="card-body">          
                     (gen_text(comment##comment))
                     (gen_date(comment##postedAt))
@@ -39,8 +40,9 @@ let gen_comment = (comment) => {
 }
 
 /* Prepare the list of comments */
-let gen_comments = (comments) => {            
-    Array.map(elem => gen_comment(elem), comments)
+let gen_comments = (comments) => {         
+    let lastId = ref(-1);   
+    Array.map(elem => gen_comment(elem, lastId), comments)
     |> ReasonReact.array        
 }
 

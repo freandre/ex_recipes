@@ -17,19 +17,21 @@ module GetRecipes = [%graphql {|
 module GetRecipesQuery = ReasonApollo.CreateQuery(GetRecipes);
 
 /* Prepare a recipe card */
-let gen_recipe = (recipe) => {  
+let gen_recipe = (recipe, lastId) => {    
   switch(recipe) {    
     | Some(recipe) =>
-          <RecipeCard id=recipe##id title=recipe##title description=recipe##description />
+          lastId := lastId^ + 1;
+          <RecipeCard id=recipe##id title=recipe##title description=recipe##description key=(string_of_int(lastId^)) />
     | _ => ReasonReact.null
   }
 };
 
 /* Prepare a recipe card list */
-let gen_recipes = (response) => {  
+let gen_recipes = (response) => { 
+  let lastId = ref(-1); 
   switch(response##recipes) {    
     | Some(recipes) =>
-        Array.map(elem => gen_recipe(elem), recipes)
+        Array.map(elem => gen_recipe(elem, lastId), recipes)
         |> ReasonReact.array
     | _ => ReasonReact.null
   }

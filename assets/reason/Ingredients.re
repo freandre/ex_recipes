@@ -5,7 +5,11 @@ let str = ReasonReact.string;
 
 /* Prepare a list of ingredients */
 let gen_ingredients = (ingredients) => {
-  Array.map(elem => <Ingredient ingredient=elem />, ingredients)
+  let lastId = ref(-1);
+  Array.map(elem => {
+      lastId := lastId^ + 1;
+      <Ingredient ingredient=elem key=(string_of_int(lastId^)) />
+    }, ingredients)
   |> ReasonReact.array
 };
 
@@ -14,10 +18,11 @@ let make = (~ingredients, _children) => {
   render: (_self) => {    
     switch(ingredients) {
         | Some(ingredients) => 
-            /* <ul className="list-group list-group-flush"> */
-            <ul>
-              (gen_ingredients(ingredients))
-            </ul>
+            <form>
+              <ul className="list-group list-group-flush">
+                (gen_ingredients(ingredients))
+              </ul>
+            </form>
         | _ => ReasonReact.null
     };
   }  
