@@ -9,6 +9,7 @@ module GetVersionedRecipe = [%graphql {|
     recipe(id: $id, revision: $revision) {
       title
       description
+      revisions
       ingredients {
         ingredient
       }
@@ -43,11 +44,12 @@ let make = (~id, ~revision, _children) => {
                   | Some(recipe) =>
                     let title = recipe##title;
                     let description = recipe##description;
+                    let revisions = recipe##revisions;
                     let ingredients = recipe##ingredients;
                     let steps = recipe##steps;
                     let comments = recipe##comments;
 
-                    <RecipePage title description ingredients steps comments />
+                    <RecipePage id revision revisions title description ingredients steps comments />
                   | _ => ReasonReact.null
                 }
           }

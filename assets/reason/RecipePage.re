@@ -3,15 +3,18 @@ let component = ReasonReact.statelessComponent("RecipePage");
 /* Shortcut declaration */
 let str = ReasonReact.string;
 
-let make = (~title, ~description, ~ingredients, ~steps, ~comments, _children) => {
+let make = (~id, ~revision, ~revisions, ~title, ~description, ~ingredients, ~steps, ~comments, _children) => {
   ...component,
-  render: (_self) => {    
+  render: (_self) => {
       <div className="container-fluid">
         <div className="row">
           <RecipeTitle title />
         </div>
         <div className="row mb-5">
           <RecipeDescription description />
+        </div>
+        <div className="row mb-5">
+          <Navigation id revision revisions />
         </div>
         <div className="row mb-5">
           <div className="col-4">
@@ -22,6 +25,6 @@ let make = (~title, ~description, ~ingredients, ~steps, ~comments, _children) =>
           </div>
         </div>
         <Comments comments />
-      </div>      
-    }  
+      </div>
+    }
 };

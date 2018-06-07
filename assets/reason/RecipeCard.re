@@ -1,5 +1,6 @@
 let component = ReasonReact.statelessComponent("RecipeCard");
 
+/* Shortcut declaration */
 let str = ReasonReact.string;
 
 /* Click handler */
@@ -22,7 +23,7 @@ let make = (~id, ~revisions, ~title, ~subtitle=?, ~description, _children) => {
     render: (_self) =>
       switch(id, revisions, title, description) {
       | (Some(id), Some(revisions), Some(title), Some(description)) =>
-        <div className="card shadow-sm rounded" onClick=(handleClick("recipe/" ++ id ++ "/revision/" ++ string_of_int(revisions)))>
+        <div className="card shadow-sm rounded" onClick=(handleClick("/recipe/" ++ id ++ "/revision/" ++ string_of_int(revisions)))>
           <div className="card-body">
             <h5 className="card-title">(str(title))</h5>
             (gen_subtitle(subtitle))
