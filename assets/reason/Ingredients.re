@@ -19,7 +19,7 @@ let make = (~ingredients, _children) => {
     switch(ingredients) {
         | Some(ingredients) => 
             <form>
-              <ul className="list-group list-group-flush">
+              <ul className="list-group">
                 (gen_ingredients(ingredients))
               </ul>
             </form>

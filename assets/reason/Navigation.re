@@ -8,6 +8,7 @@ let handleClick = (href, event) =>
   if (! ReactEventRe.Mouse.defaultPrevented(event)) {
     ReactEventRe.Mouse.preventDefault(event);
     ReasonReact.Router.push(href);
+    Js.log(href);
   };
 
 /* Prepare a "current" class element */
@@ -25,13 +26,13 @@ let gen_url = (id, revision) => {
 }
 
 /* Prepare text for navigation */
-let gen_text = (id, elem, revision) => {
-    if (elem == revision) {
+let gen_text = (id, elem, revisions) => {
+    if (elem == revisions) {
         <span className="page-link">
             (str(string_of_int(elem)))
         </span>
     } else {
-        <a className="page-link" onClick=(handleClick(gen_url(id, revision)))>
+        <a className="page-link" onClick=(handleClick(gen_url(id, elem)))>
             (str(string_of_int(elem)))
         </a>
     }
@@ -49,26 +50,51 @@ let gen_nav = (id, revision, revisions) => {
         </li>
     })
     |> ReasonReact.array
-  };
+}
+
+/* Generate a class for the "next" element */
+let gen_class_next = (id, revision, revisions) => {
+    if (revision == revisions) {
+        <li className="page-item disabled">
+            <span className="page-link" tabIndex=(-1)>(str("Next"))</span>
+        </li>   
+    } else {
+        <li className="page-item">
+            <a className="page-link" onClick=(handleClick(gen_url(id, revision + 1)))>(str("Next"))</a>
+        </li>
+    }
+}
+
+/* Generate a class for the "next" element */
+let gen_class_previous = (id, revision) => {
+    if (revision == 1) {
+        <li className="page-item disabled">
+            <span className="page-link" tabIndex=(-1)>(str("Previous"))</span>
+        </li>        
+    } else {
+        <li className="page-item">
+            <a className="page-link" onClick=(handleClick(gen_url(id, revision - 1)))>(str("Previous"))</a>
+        </li>
+    }
+}
 
 let make = (~id, ~revision, ~revisions, _children) => {
   ...component,
   render: (_self) =>
     switch(revisions) {
         | (Some(revisions)) =>
-            <nav ariaLabel="Available revisions">
+            <div className="container-fluid">
+                <span>
+            (str("Available version: "))
+            </span>
+                <nav ariaLabel="Available revisions">
                 <ul className="pagination pagination-sm justify-content-end">
-                <li className="page-item disabled">
-                    <a className="page-link" href="#" tabIndex=(-1)>(str("Previous"))</a>
-                </li>
-
-                (gen_nav(id, revision, revisions))
-
-                <li className="page-item">
-                    <a className="page-link" href="#">(str("Next"))</a>
-                </li>
+                    (gen_class_next(id, revision, revisions))
+                    (gen_nav(id, revision, revisions))
+                    (gen_class_previous(id, revision))
                 </ul>
             </nav>
+            </div>
         | _ => ReasonReact.null
     }
 };
