@@ -4,11 +4,11 @@ let component = ReasonReact.statelessComponent("Recipe");
 let str = ReasonReact.string;
 
 /* GraphQL declaration */
-module GetRecipe = [%graphql {|  
-  query getVersionedRecipe($id: Int!) {
-    recipe(id: $id) {
+module GetVersionedRecipe = [%graphql {|
+  query getVersionedRecipe($id: Int!, $revision: Int!) {
+    recipe(id: $id, revision: $revision) {
       title
-      description      
+      description
       ingredients {
         ingredient
       }
@@ -19,24 +19,24 @@ module GetRecipe = [%graphql {|
         comment
         postedAt
       }
-    } 
+    }
   }
-|}]; 
+|}];
 
-module GetRecipeQuery = ReasonApollo.CreateQuery(GetRecipe);
+module GetVersionedRecipeQuery = ReasonApollo.CreateQuery(GetVersionedRecipe);
 
-let make = (~id, _children) => {
+let make = (~id, ~revision, _children) => {
   ...component,
-  render: (_self) => {            
-        let recipeQuery = GetRecipe.make(~id=id, ());        
+  render: (_self) => {
+        let recipeQuery = GetVersionedRecipe.make(~id=id, ~revision=revision, ());
 
-        <GetRecipeQuery variables=recipeQuery##variables>
+        <GetVersionedRecipeQuery variables=recipeQuery##variables>
         ...(({result}) => {
           switch result {
             | Loading => <div>(str("Loading"))</div>
             | Error(error) => Js.log(error);
                               <div>(str("Something Went Wrong"))</div>
-            | Data(response) => 
+            | Data(response) =>
                 let recipe = response##recipe;
 
                 switch recipe {
@@ -46,12 +46,12 @@ let make = (~id, _children) => {
                     let ingredients = recipe##ingredients;
                     let steps = recipe##steps;
                     let comments = recipe##comments;
-                    
-                    <RecipePage title description ingredients steps comments />                    
+
+                    <RecipePage title description ingredients steps comments />
                   | _ => ReasonReact.null
                 }
           }
         })
-      </GetRecipeQuery>
+      </GetVersionedRecipeQuery>
     }
 };

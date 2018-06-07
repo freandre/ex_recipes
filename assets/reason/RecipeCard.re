@@ -11,18 +11,18 @@ let handleClick = (href, event) =>
 
 /* Prepare a subtitle if available */
 let gen_subtitle = (subtitle) => {
-  switch(subtitle) {    
+  switch(subtitle) {
     | Some(subtitle) => <h6 className="card-subtitle mb-2 text-muted">(str(subtitle))</h6>
     | _ => ReasonReact.null
   }
 };
 
-let make = (~id, ~title, ~subtitle=?, ~description, _children) => {
+let make = (~id, ~revisions, ~title, ~subtitle=?, ~description, _children) => {
     ...component,
-    render: (_self) => 
-      switch(id, title, description) {
-      | (Some(id), Some(title), Some(description)) => 
-        <div className="card shadow-sm rounded" onClick=(handleClick("recipe/" ++ id))>
+    render: (_self) =>
+      switch(id, revisions, title, description) {
+      | (Some(id), Some(revisions), Some(title), Some(description)) =>
+        <div className="card shadow-sm rounded" onClick=(handleClick("recipe/" ++ id ++ "/revision/" ++ string_of_int(revisions)))>
           <div className="card-body">
             <h5 className="card-title">(str(title))</h5>
             (gen_subtitle(subtitle))
@@ -30,5 +30,5 @@ let make = (~id, ~title, ~subtitle=?, ~description, _children) => {
           </div>
         </div>
       | _ => ReasonReact.null
-      }          
-  }; 
+      }
+  };
