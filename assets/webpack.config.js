@@ -88,7 +88,7 @@ module.exports = (env) => {
 
         resolve: {
             modules: ["node_modules", __dirname],
-            extensions: [".js", ".json", ".jsx", ".css", ".scss"]
+            extensions: [".js", ".json", ".css", ".scss"]
         },
 
         plugins: isDev ? [
@@ -103,7 +103,7 @@ module.exports = (env) => {
                 }]),
 
                 new ExtractTextPlugin({
-                    filename: "css/[name].css",
+                    filename: "css/[name].scss",
                     allChunks: true
                 }),
 
