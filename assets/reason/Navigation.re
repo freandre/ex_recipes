@@ -57,7 +57,7 @@ let gen_class_next = (id, revision, revisions) => {
     if (revision == revisions) {
         <li className="page-item disabled">
             <span className="page-link" tabIndex=(-1)>(str("Next"))</span>
-        </li>   
+        </li>
     } else {
         <li className="page-item">
             <a className="page-link" onClick=(handleClick(gen_url(id, revision + 1)))>(str("Next"))</a>
@@ -70,7 +70,7 @@ let gen_class_previous = (id, revision) => {
     if (revision == 1) {
         <li className="page-item disabled">
             <span className="page-link" tabIndex=(-1)>(str("Previous"))</span>
-        </li>        
+        </li>
     } else {
         <li className="page-item">
             <a className="page-link" onClick=(handleClick(gen_url(id, revision - 1)))>(str("Previous"))</a>
@@ -83,18 +83,19 @@ let make = (~id, ~revision, ~revisions, _children) => {
   render: (_self) =>
     switch(revisions) {
         | (Some(revisions)) =>
-            <div className="container-fluid">
-                <span>
-            (str("Available version: "))
-            </span>
-                <nav ariaLabel="Available revisions">
-                <ul className="pagination pagination-sm justify-content-end">
-                    (gen_class_next(id, revision, revisions))
-                    (gen_nav(id, revision, revisions))
-                    (gen_class_previous(id, revision))
-                </ul>
-            </nav>
-            </div>
+            if (revisions > 1) {
+                <div className="container-fluid d-flex justify-content-end">
+                    <nav ariaLabel="Available revisions">
+                        <ul className="pagination pagination-sm">
+                            (gen_class_next(id, revision, revisions))
+                            (gen_nav(id, revision, revisions))
+                            (gen_class_previous(id, revision))
+                        </ul>
+                    </nav>
+                </div>
+            } else {
+                ReasonReact.null
+            };
         | _ => ReasonReact.null
     }
 };
