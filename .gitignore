@@ -15,6 +15,7 @@ npm-debug.log
 /assets/node_modules
 /assets/lib
 /assets/.merlin
+/assets/.bsb.lock
 /assets/reason/*.js
 /assets/.graphql_ppx_cache/
 
