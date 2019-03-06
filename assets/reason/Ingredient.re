@@ -30,7 +30,7 @@ let gen_item = (self) => {
 let gen_input = (self) => {
     <div className="input-group input-group-sm">
         <input
-            _type="text"
+            type_="text"
             className="form-control"
             placeholder="Ingredient"
             ariaLabel="Ingredient"
@@ -39,10 +39,10 @@ let gen_input = (self) => {
             onChange=(event => self.ReasonReact.send(Edit(valueFromEvent(event))))
         />
         <div className="input-group-append">
-            <button className="btn btn-outline-secondary" _type="button" onClick=(_event => self.ReasonReact.send(Update(self.ReasonReact.state.currentValue)))>
+            <button className="btn btn-outline-secondary" type_="button" onClick=(_event => self.ReasonReact.send(Update(self.ReasonReact.state.currentValue)))>
                 <i className="fas fa-check" />
             </button>
-            <button className="btn btn-outline-secondary" _type="button" onClick=(_event => self.ReasonReact.send(Cancel))>
+            <button className="btn btn-outline-secondary" type_="button" onClick=(_event => self.ReasonReact.send(Cancel))>
                 <i className="fas fa-times" />
             </button>
         </div>

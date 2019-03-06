@@ -16,6 +16,7 @@ npm-debug.log
 /assets/lib
 /assets/.merlin
 /assets/reason/*.js
+/assets/.graphql_ppx_cache/
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment

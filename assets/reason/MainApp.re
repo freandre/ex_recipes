@@ -30,15 +30,12 @@ let make = _children => {
     ...component,
     reducer,
     initialState: () => {route: Home},
-    subscriptions: self => [
-      Sub(
-        () =>
-          ReasonReact.Router.watchUrl(url =>
+    didMount: self => {
+      let watcherID = ReasonReact.Router.watchUrl(url =>
             self.send(ChangeRoute(url |> mapUrlToRoute))
-          ),
-        ReasonReact.Router.unwatchUrl,
-      ),
-    ],
+          )
+          self.onUnmount(() => ReasonReact.Router.unwatchUrl(watcherID));
+    },
     render: self =>
         <ReasonApollo.Provider client=GraphQLClient.instance>
             <div className="container-fluid">

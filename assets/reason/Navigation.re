@@ -5,8 +5,8 @@ let str = ReasonReact.string;
 
 /* Click handler */
 let handleClick = (href, event) =>
-  if (! ReactEventRe.Mouse.defaultPrevented(event)) {
-    ReactEventRe.Mouse.preventDefault(event);
+  if (! ReactEvent.Mouse.defaultPrevented(event)) {
+    ReactEvent.Mouse.preventDefault(event);
     ReasonReact.Router.push(href);
     Js.log(href);
   };
@@ -57,7 +57,7 @@ let gen_class_next = (id, revision, revisions) => {
     if (revision == revisions) {
         <li className="page-item disabled">
             <span className="page-link" tabIndex=(-1)>(str("Next"))</span>
-        </li>   
+        </li>
     } else {
         <li className="page-item">
             <a className="page-link" onClick=(handleClick(gen_url(id, revision + 1)))>(str("Next"))</a>
@@ -70,7 +70,7 @@ let gen_class_previous = (id, revision) => {
     if (revision == 1) {
         <li className="page-item disabled">
             <span className="page-link" tabIndex=(-1)>(str("Previous"))</span>
-        </li>        
+        </li>
     } else {
         <li className="page-item">
             <a className="page-link" onClick=(handleClick(gen_url(id, revision - 1)))>(str("Previous"))</a>

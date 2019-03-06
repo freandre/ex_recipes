@@ -5,8 +5,8 @@ let str = ReasonReact.string;
 
 /* Click handler */
 let handleClick = (href, event) =>
-  if (! ReactEventRe.Mouse.defaultPrevented(event)) {
-    ReactEventRe.Mouse.preventDefault(event);
+  if (! ReactEvent.Mouse.defaultPrevented(event)) {
+    ReactEvent.Mouse.preventDefault(event);
     ReasonReact.Router.push(href);
   };
 
