@@ -11,6 +11,9 @@ import css from "../css/app.scss"
 //
 import "phoenix_html"
 
+// Import scss
+import css from "../css/app.scss"
+
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
