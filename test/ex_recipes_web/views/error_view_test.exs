@@ -5,14 +5,10 @@ defmodule ExRecipesWeb.ErrorViewTest do
   import Phoenix.View
 
   test "renders 404.html" do
-    assert render_to_string(ExRecipesWeb.ErrorView, "404.html", []) == "Page not found"
+    assert render_to_string(ExRecipesWeb.ErrorView, "404.html", []) == "Not Found"
   end
 
-  test "render 500.html" do
-    assert render_to_string(ExRecipesWeb.ErrorView, "500.html", []) == "Internal server error"
-  end
-
-  test "render any other" do
-    assert render_to_string(ExRecipesWeb.ErrorView, "505.html", []) == "Internal server error"
+  test "renders 500.html" do
+    assert render_to_string(ExRecipesWeb.ErrorView, "500.html", []) == "Internal Server Error"
   end
 end
