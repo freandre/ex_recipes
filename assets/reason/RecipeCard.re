@@ -23,6 +23,7 @@ let make = (~id, ~revisions, ~title, ~subtitle=?, ~description, _children) => {
     render: (_self) =>
       switch(id, revisions, title, description) {
       | (Some(id), Some(revisions), Some(title), Some(description)) =>
+      <a href="#">
         <div className="card shadow-sm rounded" onClick=(handleClick("/recipe/" ++ id ++ "/revision/" ++ string_of_int(revisions)))>
           <div className="card-body">
             <h5 className="card-title">(str(title))</h5>
@@ -30,6 +31,7 @@ let make = (~id, ~revisions, ~title, ~subtitle=?, ~description, _children) => {
             <p className="card-text">(str(description))</p>
           </div>
         </div>
+        </a>
       | _ => ReasonReact.null
       }
   };
